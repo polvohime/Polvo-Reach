@@ -147,9 +147,6 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 	///once we have become sentient, we can never go back.
 	var/can_have_ai = TRUE
 
-	///convenience var for forcibly waking up an idling AI on next check.
-	var/shouldwakeup = FALSE
-
 	///Domestication.
 	var/tame = FALSE
 	///What the mob eats, typically used for taming or animal husbandry.
@@ -185,6 +182,12 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 
 	var/list/inherent_spells = list()
 
+	///What distance should we be checking for interesting things when considering idling/deidling? Defaults to AI_DEFAULT_INTERESTING_DIST
+	var/interesting_dist = AI_DEFAULT_INTERESTING_DIST
+	///our current cell grid
+	var/datum/cell_tracker/our_cells
+
+
 /mob/living/simple_animal/Initialize()
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -195,15 +198,16 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
-//	if(dextrous)
-//		AddComponent(/datum/component/personal_crafting)
 	for(var/spell in inherent_spells)
 		var/obj/effect/proc_holder/spell/newspell = new spell()
 		AddSpell(newspell)
 	if(is_flying_animal)
 		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
+	our_cells = new(interesting_dist, interesting_dist, 1)
+	set_new_cells()
 
 /mob/living/simple_animal/Destroy()
+	our_cells = null
 	GLOB.simple_animals[AIStatus] -= src
 	if (SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
 		SSnpcpool.currentrun -= src
@@ -934,8 +938,17 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
 
 /mob/living/simple_animal/proc/consider_wakeup()
-	if (pulledby || shouldwakeup)
-		toggle_ai(AI_ON)
+	for(var/datum/spatial_grid_cell/grid as anything in our_cells.member_cells)
+		if(length(grid.client_contents))
+			GLOB.mob_living_list |= src
+			GLOB.idle_mob_list -= src
+			toggle_ai(AI_ON)
+			return TRUE
+
+	GLOB.mob_living_list -= src
+	GLOB.idle_mob_list |= src
+	toggle_ai(AI_OFF)
+	return FALSE
 
 /mob/living/simple_animal/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
@@ -965,6 +978,8 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 		food = max(food + 30, 100)
 
 /mob/living/simple_animal/Life()
+	if(!client && can_have_ai && (AIStatus == AI_Z_OFF || AIStatus == AI_OFF))
+		return
 	. = ..()
 	if(.)
 		if(food > 0)
@@ -981,3 +996,48 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 		if(isturf(loc))
 			playsound(src, "fart", 100, TRUE)
 			new pooptype(loc)
+
+/mob/living/simple_animal/proc/on_client_enter(datum/source, atom/target)
+	SIGNAL_HANDLER
+	if(AIStatus == AI_IDLE)
+		GLOB.mob_living_list |= src
+		GLOB.idle_mob_list -= src
+		toggle_ai(AI_ON)
+
+/mob/living/simple_animal/proc/on_client_exit(datum/source, datum/exited)
+	SIGNAL_HANDLER
+	consider_wakeup()
+
+/mob/living/simple_animal/proc/set_new_cells()
+	var/turf/our_turf = get_turf(src)
+	if(isnull(our_turf))
+		return
+
+	var/list/cell_collections = our_cells.recalculate_cells(our_turf)
+
+	for(var/datum/old_grid as anything in cell_collections[2])
+		UnregisterSignal(old_grid, list(SPATIAL_GRID_CELL_ENTERED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), SPATIAL_GRID_CELL_EXITED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)))
+
+	for(var/datum/spatial_grid_cell/new_grid as anything in cell_collections[1])
+		RegisterSignal(new_grid, SPATIAL_GRID_CELL_ENTERED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(on_client_enter))
+		RegisterSignal(new_grid, SPATIAL_GRID_CELL_EXITED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(on_client_exit))
+	consider_wakeup()
+
+/mob/living/simple_animal/Moved()
+	. = ..()
+	update_grid()
+
+/mob/living/simple_animal/proc/update_grid()
+	var/turf/our_turf = get_turf(src)
+	if(isnull(our_turf))
+		return
+
+	var/list/cell_collections = our_cells.recalculate_cells(our_turf)
+
+	for(var/datum/old_grid as anything in cell_collections[2])
+		UnregisterSignal(old_grid, list(SPATIAL_GRID_CELL_ENTERED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), SPATIAL_GRID_CELL_EXITED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)))
+
+	for(var/datum/spatial_grid_cell/new_grid as anything in cell_collections[1])
+		RegisterSignal(new_grid, SPATIAL_GRID_CELL_ENTERED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(on_client_enter))
+		RegisterSignal(new_grid, SPATIAL_GRID_CELL_EXITED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(on_client_exit))
+	consider_wakeup()

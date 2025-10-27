@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(mobs)
 
 
 /datum/controller/subsystem/mobs/stat_entry()
-	..("P:[GLOB.mob_living_list.len]")
+	..("P:[GLOB.mob_living_list.len], I:[GLOB.idle_mob_list.len]")
 
 /datum/controller/subsystem/mobs/proc/MaxZChanged()
 	if (!islist(clients_by_zlevel))
