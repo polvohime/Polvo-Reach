@@ -20,11 +20,11 @@
 		src.STAPER = 10
 		src.STASPD = 16
 
-		AddSpell(new /obj/effect/proc_holder/spell/self/wolfclaws)
+		AddSpell(new /obj/effect/proc_holder/spell/self/foxclaws)
 		real_name = "Vernard ([stored_mob.real_name])" //So we don't get a random name
 		faction += "wolfs" // Foxes have the same faction code-wise so leaving it for now
 
-// WOLF SPECIES DATUM //
+// FOX SPECIES DATUM //
 /datum/species/shapefox
 	name = "vernard"
 	id = "shapefox"
@@ -82,9 +82,9 @@
 	return TRUE
 
 // FOX SPECIFIC ITEMS //
-/obj/item/clothing/suit/roguetown/armor/skin_armor/wolf_skin
+/obj/item/clothing/suit/roguetown/armor/skin_armor/fox_skin
 	slot_flags = null
-	name = "volf's skin"
+	name = "fox's skin"
 	desc = ""
 	icon_state = null
 	body_parts_covered = FULL_BODY
@@ -94,10 +94,10 @@
 	blocksound = SOFTHIT
 	blade_dulling = DULLING_BASHCHOP
 	sewrepair = FALSE
-	max_integrity = 120 //Less than leather, it's full-body and foments hit and run
+	max_integrity = 100 //Less than leather, it's full-body and foments hit and run
 	item_flags = DROPDEL
 
-/datum/intent/simple/volf //Like a less defense dagger
+/datum/intent/simple/fox //Like a less defense dagger
 	name = "claw"
 	clickcd = 10
 	icon_state = "incut"
@@ -112,8 +112,8 @@
 	miss_sound = "bluntswoosh"
 	item_d_type = "slash"
 
-/obj/item/rogueweapon/wolf_claw //Like a less defense dagger
-	name = "volf claw"
+/obj/item/rogueweapon/fox_claw //Like a less defense dagger
+	name = "fox claw"
 	desc = ""
 	item_state = null
 	lefthand_file = null
@@ -139,19 +139,19 @@
 	item_flags = DROPDEL
 	experimental_inhand = FALSE
 
-/obj/item/rogueweapon/wolf_claw/right
+/obj/item/rogueweapon/fox_claw/right
 	icon_state = "claw_r"
 
-/obj/item/rogueweapon/wolf_claw/left
+/obj/item/rogueweapon/fox_claw/left
 	icon_state = "claw_l"
 
-/obj/item/rogueweapon/wolf_claw/Initialize()
+/obj/item/rogueweapon/fox_claw/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOEMBED, TRAIT_GENERIC)
 
 // FOX SPELLS //
-/obj/effect/proc_holder/spell/self/wolfclaws
+/obj/effect/proc_holder/spell/self/foxclaws
 	name = "Vernard Claws"
 	desc = "!"
 	overlay_state = "claws"
@@ -160,18 +160,18 @@
 	ignore_cockblock = TRUE
 	var/extended = FALSE
 
-/obj/effect/proc_holder/spell/self/wolfclaws/cast(mob/user = usr)
+/obj/effect/proc_holder/spell/self/foxclaws/cast(mob/user = usr)
 	..()
-	var/obj/item/rogueweapon/wolf_claw/left/l
-	var/obj/item/rogueweapon/wolf_claw/right/r
+	var/obj/item/rogueweapon/fox_claw/left/l
+	var/obj/item/rogueweapon/fox_claw/right/r
 
 	l = user.get_active_held_item()
 	r = user.get_inactive_held_item()
 	if(extended)
-		if(istype(l, /obj/item/rogueweapon/wolf_claw))
+		if(istype(l, /obj/item/rogueweapon/fox_claw))
 			user.dropItemToGround(l, TRUE)
 			qdel(l)
-		if(istype(r, /obj/item/rogueweapon/wolf_claw))
+		if(istype(r, /obj/item/rogueweapon/fox_claw))
 			user.dropItemToGround(r, TRUE)
 			qdel(r)
 		//user.visible_message("Your claws retract.", "You feel your claws retracting.", "You hear a sound of claws retracting.")
