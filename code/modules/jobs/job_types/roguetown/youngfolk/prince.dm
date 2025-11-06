@@ -87,7 +87,7 @@
 		belt = /obj/item/storage/belt/rogue/leather
 		l_hand = /obj/item/rogueweapon/sword/sabre
 		beltl = /obj/item/rogueweapon/scabbard/sword
-		beltr = /obj/item/storage/keyring/heir
+		beltr = /obj/item/storage/keyring/heir/warrior
 		neck = /obj/item/storage/belt/rogue/pouch/coins/rich
 		backr = /obj/item/storage/backpack/rogue/satchel
 	else
@@ -100,7 +100,7 @@
 			shirt = /obj/item/clothing/suit/roguetown/shirt/dress/royal/princess
 		head = /obj/item/clothing/head/roguetown/circlet
 		belt = /obj/item/storage/belt/rogue/leather/cloth/lady
-		beltr = /obj/item/storage/keyring/heir
+		beltr = /obj/item/storage/keyring/heir/warrior
 		beltl = /obj/item/rogueweapon/huntingknife/idagger/steel/special
 		backr = /obj/item/storage/backpack/rogue/satchel
 		shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
@@ -142,7 +142,7 @@
 		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/royal/princess
 	head = /obj/item/clothing/head/roguetown/circlet
 	belt = /obj/item/storage/belt/rogue/leather/cloth/lady
-	beltr = /obj/item/storage/keyring/heir
+	beltr = /obj/item/storage/keyring/heir/mage
 	beltl = /obj/item/rogueweapon/huntingknife/idagger/steel/special
 	backr = /obj/item/storage/backpack/rogue/satchel
 	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot

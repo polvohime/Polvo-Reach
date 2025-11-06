@@ -104,6 +104,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Heavy Hood"
 	path = /obj/item/clothing/head/roguetown/roguehood/shalal/heavyhood
 
+/datum/loadout_item/scarf
+	name = "Scarf"
+	path = /obj/item/clothing/head/roguetown/scarf
+
 /datum/loadout_item/nunveil
 	name = "Nun Veil"
 	path = /obj/item/clothing/head/roguetown/nun
