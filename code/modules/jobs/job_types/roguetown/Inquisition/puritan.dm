@@ -7,6 +7,7 @@
 	spawn_positions = 1
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_INQUISITOR //An incredibly bigoted organization. They would only allow races PSYDON Himself created into such an esteemed role. Aasimar are given a pass, as they consider the Ten to be saints, and Aasimar have far more direct connections to them then the other races.
+	disallowed_races = list(
 		/datum/species/lamia,
 		/datum/species/harpy,
 	)
