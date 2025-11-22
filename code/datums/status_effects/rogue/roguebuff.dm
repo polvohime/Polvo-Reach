@@ -1385,13 +1385,18 @@
 	M.color = effect_color
 	pulse += 1
 
-/datum/status_effect/buff/parish_boon
-	id = "parish_boon"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/parish_boon
-	effectedstats = list("perception" = 1, "intelligence" = 1)
-	duration = 20 MINUTES
+/datum/status_effect/buff/celerity
+	id = "celerity"
+	alert_type = /atom/movable/screen/alert/status_effect/buff
+	effectedstats = list(STATKEY_SPD = 1)
+	status_type = STATUS_EFFECT_REPLACE
 
-/atom/movable/screen/alert/status_effect/buff/parish_boon
-	name = "Boon of the Parish"
-	desc = "You lent partial aid to the local church and bear a modest share of its blessing."
-	icon_state = "buff"
+/datum/status_effect/buff/celerity/New(list/arguments)
+	effectedstats[STATKEY_SPD] = arguments[2]
+	. = ..()
+
+/datum/status_effect/buff/fotv
+	id = "fotv"
+	alert_type = /atom/movable/screen/alert/status_effect/buff
+	effectedstats = list(STATKEY_SPD = 3, STATKEY_END = 1, STATKEY_CON = 1)
+	status_type = STATUS_EFFECT_REPLACE

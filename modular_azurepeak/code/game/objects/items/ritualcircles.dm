@@ -786,7 +786,7 @@ var/forgerites = list("Ritual of Blessed Reforgance")
 	if (target.mob_biotypes & MOB_UNDEAD)
 		loc.visible_message(span_cult("YOU HAVE NO MORE LYFE TO GIVE, FOR YOUR HEART DOES NOT BEAT!"))
 		return
-	if (target.mind?.has_antag_datum(/datum/antagonist/vampire/lesser))
+	if (target.mind?.has_antag_datum(/datum/antagonist/vampire))
 		loc.visible_message(span_cult("YOU HAVE NO MORE LYFE TO GIVE, FOR YOUR HEART DOES NOT BEAT, CHILDE OF KAIN!"))
 		return
 	if (target.mind?.has_antag_datum(/datum/antagonist/werewolf/lesser))
