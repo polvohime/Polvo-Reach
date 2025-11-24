@@ -431,7 +431,7 @@
 				to_chat(user,span_smallred("I have performed enough rituals for the day... I must rest before communing more."))
 				return
 			if(do_after(user, 50))
-				user.say("I call for ruthless wilds-")
+				user.say("I call to the ruthless wilds,")
 				playsound(loc, 'sound/vo/mobs/spider/idle (1).ogg', 100, FALSE, -1)
 				if(do_after(user, 50))
 					user.say("Grant me form to traverse...")
