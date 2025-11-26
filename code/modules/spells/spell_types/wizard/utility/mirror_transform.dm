@@ -45,7 +45,7 @@
 	if (!H)
 		return
 	var/should_update = FALSE
-	var/list/choices = list("hairstyle", "facial hairstyle", "accessory", "face detail", "horns", "horn color", "ears", "ear color one", "ear color two", "tail", "tail color one", "tail color two", "hair color", "facial hair color", "eye color", "natural gradient", "natural gradient color", "dye gradient", "dye gradient color", "penis", "testicles", "breasts", "vagina", "breast size", "penis size", "testicle size", "wings", "wing color one", "wing color two")
+	var/list/choices = list("hairstyle", "facial hairstyle", "accessory", "face detail", "horns", "horn color", "ears", "ear color one", "ear color two", "tail", "tail color one", "tail color two", "hair color", "facial hair color", "eye color", "natural gradient", "natural gradient color", "dye gradient", "dye gradient color", "penis", "testicles", "breasts", "vagina", "breast size", "penis size", "testicle size", "wings", "wing color one")
 	var/chosen = input(H, "Change what?", "Appearance") as null|anything in choices
 
 	if(!chosen)
@@ -768,26 +768,6 @@
 					should_update = TRUE
 			else
 				to_chat(H, span_warning("You don't have wings!"))
-
-		if("wing color two")
-			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
-			if(wings)
-				var/new_color = color_pick_sanitized(H, "Choose your secondary wing color", "Wing Color Two", "#FFFFFF")
-				if(new_color)
-					wings.Remove(H)
-					var/list/colors = list()
-					if(wings.accessory_colors)
-						colors = color_string_to_list(wings.accessory_colors)
-					if(!length(colors))
-						colors = list("#FFFFFF", "#FFFFFF") // Default colors if none set
-					colors[2] = sanitize_hexcolor(new_color, 6, TRUE)
-					wings.accessory_colors = color_list_to_string(colors)
-					wings.Insert(H, TRUE, FALSE)
-					H.dna.features["wings_color2"] = colors[2]  // Update DNA features
-					H.update_body()
-					should_update = TRUE
-			else
-				to_chat(H, span_warning("You don't have a wings!"))
 
 	if(should_update)
 		H.update_hair()
