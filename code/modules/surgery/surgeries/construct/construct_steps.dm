@@ -144,10 +144,11 @@
 	surgery_flags = SURGERY_INCISED | SURGERY_RETRACTED | SURGERY_BROKEN | SURGERY_CONSTRUCT
 
 /// Manipulate Organs
-/datum/surgery_step/manipulate_organs
+/datum/surgery_step/manipulate_organs/construct
 	name = "Manipulate internal components"
 	skill_used = /datum/skill/craft/engineering
 	surgery_flags = SURGERY_INCISED | SURGERY_RETRACTED | SURGERY_CONSTRUCT
+	surgery_flags_blocked = null
 
 /// Mold organs
 /datum/surgery_step/make_organs/construct
