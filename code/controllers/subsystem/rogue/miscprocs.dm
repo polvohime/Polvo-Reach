@@ -19,16 +19,6 @@
 #define CLERIC_REGEN_ABSOLVER 5
 
 
-// church gameloop auto spell stuff 
-
-/proc/_is_learnmiracle_eligible(mob/living/carbon/human/H)
-	if(!H || !H.mind) return FALSE
-	if(!HAS_TRAIT(H, TRAIT_CLERGY)) return FALSE
-	var/txt = lowertext("[H.mind.assigned_role]")
-	return findtext(txt, "druid") || findtext(txt, "acolyte") || findtext(txt, "templar")
-
-	return FALSE
-
 // Cleric Holder Datums
 
 /datum/devotion
@@ -90,6 +80,12 @@
 	if(devotion - spell.devotion_cost < 0)
 		return FALSE
 	return TRUE
+
+/datum/devotion/proc/_is_learnmiracle_eligible(mob/living/carbon/human/H)
+	if(!H || !H.mind) return FALSE
+	if(!HAS_TRAIT(H, TRAIT_CLERGY)) return FALSE
+	var/txt = lowertext("[H.mind.assigned_role]")
+	return findtext(txt, "druid") || findtext(txt, "acolyte") || findtext(txt, "templar")
 
 /datum/devotion/proc/update_devotion(dev_amt, prog_amt, silent = FALSE)
 	devotion = clamp(devotion + dev_amt, 0, max_devotion)
