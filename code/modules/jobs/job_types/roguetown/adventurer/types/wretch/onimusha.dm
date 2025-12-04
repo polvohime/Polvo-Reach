@@ -53,7 +53,7 @@
 		/obj/item/rope/chain = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 	)
-
+	wretch_select_bounty(H)
 	change_origin(H, /datum/virtue/origin/kazengun)
 
 /datum/advclass/wretch/swordhunter
