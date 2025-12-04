@@ -363,7 +363,6 @@
 	name = "Focus target!"
 	overlay_state = "focustarget"
 
-
 /obj/effect/proc_holder/spell/invoked/order/focustarget/cast(list/targets, mob/living/user)
 	. = ..()
 	if(isliving(targets[1]))

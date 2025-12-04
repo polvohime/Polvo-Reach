@@ -12,7 +12,7 @@
 		/datum/species/lamia,
 	)
 	allowed_sexes = list(MALE, FEMALE)
-	spells = list(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+	spells = list(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation, /obj/effect/proc_holder/spell/self/message)
 	display_order = JDO_MAGICIAN
 	tutorial = "Your creed is one dedicated to the conquering of the arcane arts and the constant thrill of knowledge. \
 		You owe your life to the Lord, for it was his coin that allowed you to continue your studies in these dark times. \
@@ -25,12 +25,12 @@
 	round_contrib_points = 2
 	cmode_music = 'sound/music/combat_bandit_mage.ogg'
 	advclass_cat_rolls = list(CTAG_COURTMAGE = 2)
-	social_rank = SOCIAL_RANK_YEOMAN
+	social_rank = SOCIAL_RANK_NOBLE // "as justicar and trusted advisor to their reign" to the duke, basically the duke's right hand guy after the Hand
 
 	// Can't get very far as a magician if you can't chant spells now can you?
 	vice_restrictions = list(/datum/charflaw/mute)
 
-	job_traits = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T4, TRAIT_SEEPRICES, TRAIT_INTELLECTUAL)
+	job_traits = list(TRAIT_NOBLE, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T4, TRAIT_SEEPRICES, TRAIT_INTELLECTUAL)
 	job_subclasses = list(
 		/datum/advclass/courtmage
 	)

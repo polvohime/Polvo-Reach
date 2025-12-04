@@ -40,6 +40,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	job_subclasses = list(
 		/datum/advclass/lord/warrior,
 		/datum/advclass/lord/merchant,
+		/datum/advclass/lord/sorcerer,
 		/datum/advclass/lord/inbred
 	)
 
@@ -206,6 +207,53 @@ GLOBAL_LIST_EMPTY(lord_titles)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/appraise/secular)
 
 /**
+	Philosopher Lord subclass. The evolution of the Introverted Bookworm.
+	Nearly identical statline to Merchant Lord, just trades the 1 SPD for 1 END.
+	Gets T2 magic with 12 spellpoints (+3 if old), the Message spell,  Journeyman Arcyne and Alchemy. Shitty weapon skills.
+	Gets the Mage Armor and Intellectual traits, but the main power of this class is being a caster.
+**/
+/datum/advclass/lord/sorcerer
+	name = "Philosopher Lord"
+	tutorial = "Growing up you were always more interested in books and magic than you were with interacting with others. Alas, the royal blood does not make allowances for personality and like it or not, you rule Scarlet Reach. Hopefully your magical training and keen intellect will serve you well."
+	outfit = /datum/outfit/job/roguetown/lord/sorcerer
+	category_tags = list(CTAG_LORD)
+	
+	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T2, TRAIT_INTELLECTUAL)
+	subclass_stats = list(
+		STATKEY_LCK = 5,
+		STATKEY_INT = 5,
+		STATKEY_PER = 4,
+		STATKEY_END = 1,
+	)
+
+	subclass_spellpoints = 12
+
+	subclass_skills = list(
+		/datum/skill/magic/arcane = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/alchemy = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/polearms = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/maces = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/swords = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE, //Your only non-novice weapon skill, because you're a NERD who read books instead of studying the blade
+		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
+		/datum/skill/misc/climbing = SKILL_LEVEL_NOVICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/reading = SKILL_LEVEL_MASTER,
+		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
+	)
+
+/datum/outfit/job/roguetown/lord/sorcerer/pre_equip(mob/living/carbon/human/H)
+	..()
+	H.dna.species.soundpack_m = new /datum/voicepack/male/tyrant()
+	l_hand = /obj/item/rogueweapon/lordscepter
+	if(H.mind)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/message) //Useful administrative spell, put here to not be basically a tax
+	if(H.age == AGE_OLD)
+		H?.mind.adjust_spellpoints(3)
+
+/** 
 	Inbred Lord subclass. A joke class, evolution of the Inbred Wastrel.
 	Literally the same stat line and skills line, but with one exception - 10 Fortune.
 	Why? Because it is funny, that's why. They also have heavy armor training.
