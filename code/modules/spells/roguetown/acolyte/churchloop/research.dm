@@ -1146,38 +1146,95 @@ var/global/list/PATRON_ARTIFACTS = list(
 	if(href_list["learnspell"])
 		var/txt = href_list["learnspell"]
 		var/typepath = text2path(txt)
-		if(!ispath(typepath, /obj/effect/proc_holder/spell)) { open_learn_ui(H); return }
+		if(!ispath(typepath, /obj/effect/proc_holder/spell))
+			open_learn_ui(H)
+			return
 
 		var/obj/effect/proc_holder/spell/S = new typepath
-		if(!S) { open_learn_ui(H); return }
+		if(!S)
+			open_learn_ui(H)
+			return
 
+		//no duplication exploit I want to say slur word
 		if(H?.mind)
 			for(var/obj/effect/proc_holder/spell/K in H.mind.spell_list)
-				if(K.type == typepath) { qdel(S); to_chat(H, span_warning("You already know this one!")); open_learn_ui(H); return }
+				if(K.type == typepath)
+					qdel(S)
+					to_chat(H, span_warning("You already know this one!"))
+					open_learn_ui(H)
+					return
 
 		var/my_patron = ""
 		if(H.devotion && H.devotion.patron && ("name" in H.devotion.patron.vars))
 			my_patron = "[H.devotion.patron.vars["name"]]"
 
-		var/owner_name = get_spell_patron_name(typepath)
-		if(!istext(owner_name) || !length(owner_name)) owner_name = my_patron
-
-		var/owner_rel = (owner_name == my_patron) ? 4 : (H.patron_relations && (owner_name in H.patron_relations) ? H.patron_relations[owner_name] : 0)
-		var/max_allowed = allowed_tier_by_relation(owner_rel)
-		if(_is_templar(H)) max_allowed = min(max_allowed, 2)
-
 		var/tier = get_spell_tier(S)
-		if(tier > max_allowed) { qdel(S); to_chat(H, span_warning("You lack the relation level for this miracle.")); open_learn_ui(H); return }
 
-		var/cost = (owner_name == my_patron) ? CLERIC_PRICE_PATRON : CLERIC_PRICE_FOREIGN
-		if(H.miracle_points < cost) { qdel(S); open_learn_ui(H); return }
+		var/list/owners = get_spell_patron_names(typepath)
+		var/real_owner = ""
 
-		if(alert(H, "[S.desc]", "[S.name]", "Learn", "Cancel") != "Learn") { qdel(S); open_learn_ui(H); return }
+		if(length(my_patron) && islist(owners) && (my_patron in owners))
+			real_owner = my_patron
+		else if(islist(owners) && owners.len)
+			var/best_name = ""
+			var/best_rel = -1
+			for(var/on in owners)
+				if(!istext(on)) continue
+				var/r = (H.patron_relations && (on in H.patron_relations) && isnum(H.patron_relations[on])) ? H.patron_relations[on] : 0
+				if(r > best_rel)
+					best_rel = r
+					best_name = "[on]"
+			real_owner = best_name
+		else
+			real_owner = my_patron
+
+		if(!istext(real_owner) || !length(real_owner))
+			qdel(S)
+			open_learn_ui(H)
+			return
+
+		var/owner_rel = (real_owner == my_patron) ? 4 : (H.patron_relations && (real_owner in H.patron_relations) ? H.patron_relations[real_owner] : 0)
+		var/max_allowed = allowed_tier_by_relation(owner_rel)
+		if(_is_templar(H))
+			max_allowed = min(max_allowed, 2)
+
+		if(tier > max_allowed)
+			qdel(S)
+			to_chat(H, span_warning("You lack the relation level for this miracle."))
+			open_learn_ui(H)
+			return
+
+		var/cost = (real_owner == my_patron) ? CLERIC_PRICE_PATRON : CLERIC_PRICE_FOREIGN
+		if(H.miracle_points < cost)
+			qdel(S)
+			open_learn_ui(H)
+			return
+
+		if(alert(H, "[S.desc]", "[S.name]", "Learn", "Cancel") != "Learn")
+			qdel(S)
+			open_learn_ui(H)
+			return
+
+		if(H.miracle_points < cost)
+			qdel(S)
+			to_chat(H, span_warning("Not enough Miracle Points."))
+			open_learn_ui(H)
+			return
+
+		// Second no duplication exploit if GOOD GUYS figured out how to use HREF exploits
+		if(H?.mind)
+			for(var/obj/effect/proc_holder/spell/K in H.mind.spell_list)
+				if(K.type == typepath)
+					qdel(S)
+					to_chat(H, span_warning("You already know this one!"))
+					open_learn_ui(H)
+					return
 
 		H.miracle_points = max(0, H.miracle_points - cost)
 		H.mind.AddSpell(S)
 		to_chat(H, span_notice("You have learned [S.name]."))
-		open_learn_ui(H); return
+		open_learn_ui(H)
+		return
 
 	// --- Organs nav ---
 	if(href_list["orgtab"])
