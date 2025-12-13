@@ -434,7 +434,7 @@
 	miss_text = "swing a fist at the air"
 	miss_sound = "punchwoosh"
 	item_d_type = "blunt"
-	intent_intdamage_factor = 0.25
+	intent_intdamage_factor = 0.5
 
 /datum/intent/unarmed/punch/rmb_ranged(atom/target, mob/user)
 	if(user.stat >= UNCONSCIOUS)
@@ -458,8 +458,8 @@
 	chargetime = 0
 	animname = "blank22"
 	hitsound = list('sound/combat/hits/punch/punch (1).ogg', 'sound/combat/hits/punch/punch (2).ogg', 'sound/combat/hits/punch/punch (3).ogg')
-	misscost = 5
-	releasedrain = 4	//More than punch cus pen factor.
+	misscost = 1
+	releasedrain = 1	//More than punch cus pen factor.
 	swingdelay = 0
 	penfactor = 10
 	candodge = TRUE
@@ -477,7 +477,7 @@
 	chargetime = 0
 	noaa = TRUE
 	rmb_ranged = TRUE
-	misscost = 5
+	misscost = 2
 	item_d_type = "blunt"
 
 /datum/intent/unarmed/shove/rmb_ranged(atom/target, mob/user)
@@ -501,8 +501,8 @@
 	chargetime = 0
 	noaa = TRUE
 	rmb_ranged = TRUE
-	releasedrain = 10
-	misscost = 8
+	releasedrain = 2
+	misscost = 10
 	candodge = TRUE
 	canparry = TRUE
 	item_d_type = "blunt"

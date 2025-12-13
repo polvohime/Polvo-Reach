@@ -211,10 +211,12 @@
 /datum/status_effect/compliance
 	id = "compliance"
 	alert_type = /atom/movable/screen/alert/status_effect/compliance
+	needs_processing = FALSE
 
 /datum/status_effect/carebox
 	id = "carebox"
 	alert_type = /atom/movable/screen/alert/status_effect/carebox
+	needs_processing = FALSE
 
 /atom/movable/screen/alert/status_effect/carebox
 	name = "Package"
