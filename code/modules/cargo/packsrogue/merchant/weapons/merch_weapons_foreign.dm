@@ -20,6 +20,16 @@
 	cost = 80
 	contains = list(/obj/item/rogueweapon/sword/sabre/shamshir)
 
+/datum/supply_pack/rogue/merc_weapons/handclaw_iron
+	name = "Gronnic Iron Claw"
+	cost = 80
+	contains = list(/obj/item/rogueweapon/handclaw)
+
+/datum/supply_pack/rogue/merc_weapons/handclaw_steel
+	name = "Gronnic Steel Claw"
+	cost = 120
+	contains = list(/obj/item/rogueweapon/handclaw/steel)
+
 /datum/supply_pack/rogue/merc_weapons/beardedaxe
 	name = "Bearded Axe"
 	cost = 80
