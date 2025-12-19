@@ -2,9 +2,10 @@
 	race = /datum/species/elf/wood
 
 /datum/species/elf/wood
-	name = "Wood Elf"
+	name = "Elf"
 	id = "elfw"
 	psydonic = TRUE
+	sub_name = "Wood Elf"
 	desc = "<b>Elf</b><br>\
 	\"Elf\" is a catch-all term used for tall, pointy-eared humanoids who can trace \
 	their heritage to the ancient and mysterious Snow Elves. This particular species \
