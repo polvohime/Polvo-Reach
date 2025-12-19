@@ -136,6 +136,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Rosa Crown"
 	path = /obj/item/flowercrown/rosa
 
+/datum/loadout_item/salviacrown
+	name = "Salvia Crown"
+	path = /obj/item/flowercrown/salvia
+
 
 //CLOAKS
 /datum/loadout_item/tabard
