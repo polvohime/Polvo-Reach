@@ -173,6 +173,7 @@
 #define TRAIT_LEPROSY "Leprosy"
 #define TRAIT_NUDE_SLEEPER "Nude Sleeper"
 #define TRAIT_SILVER_BLESSED "Silver Blessed"
+#define TRAIT_SILVER_BLOOD "Silver Blood"
 #define TRAIT_OUTLANDER "Outlander"
 #define TRAIT_OUTLAW "Outlaw"
 #define TRAIT_KNOWNCRIMINAL "Known Criminal"
@@ -331,6 +332,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_GUIDANCE = span_info("The arcyne aides me in battle."),
 	TRAIT_DEPRAVED = span_info("The languid scent of Her debauchery is known to me."),
 	TRAIT_SILVER_BLESSED = span_info("I am anointed with holy silver, which preserves me from curses that bite."),
+	TRAIT_SILVER_BLOOD = span_info("My blood has been blessed with silver, burning any deadite that tries to feed on me. It will not protect me from their curse, however."),
 	TRAIT_GOODTRAINER = span_info("I am a good teacher, and when it comes to weaponry I can train others to be just as skilled as I am."),
 	TRAIT_BADTRAINER = span_info("I've spent yils studying the art of a single weapon, but unfortunately I've no patience to train anyone else. Everyone learning from me will only learn up to two skill levels below mine."),
 	TRAIT_SEA_DRINKER = span_info("As a denizen of the deep, I can drink salty ocean water safely."),
