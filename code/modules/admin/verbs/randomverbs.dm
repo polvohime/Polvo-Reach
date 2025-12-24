@@ -959,3 +959,5 @@ Traitors and the like can also be revived with the previous role mostly intact.
 					if(!source)
 						return
 			REMOVE_TRAIT(D,chosen_trait,source)
+			message_admins("[key_name(usr)] added the trait [chosen_trait] to [key_name(D)].")
+			log_admin("[key_name(usr)] removed the trait [chosen_trait] from [key_name(D)].")
