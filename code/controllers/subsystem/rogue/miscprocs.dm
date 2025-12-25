@@ -124,7 +124,7 @@
 /datum/devotion/proc/try_add_spells(silent = FALSE)
 	if(holder?.mind)
 		var/role = lowertext("[holder.mind.assigned_role]")
-		if(findtext(role, "druid") || findtext(role, "acolyte") || findtext(role, "churchling"))
+		if(findtext(role, "druid") || findtext(role, "acolyte"))
 			return FALSE
 	if(!holder || !holder.mind || !patron)
 		return FALSE

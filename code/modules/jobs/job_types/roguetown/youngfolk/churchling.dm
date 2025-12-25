@@ -67,7 +67,9 @@
 
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = FALSE, devotion_limit = CLERIC_REQ_1)	//Capped to T1 miracles.
-	H.miracle_points = max(H.miracle_points, 5)
+	H.miracle_points = max(H.miracle_points, 1)
+	if(H?.mind && !H.mind.has_spell(/obj/effect/proc_holder/spell/self/learnmiracle))
+		var/obj/effect/proc_holder/spell/self/learnmiracle/L = new	
 	
 	// -- Start of section for god specific bonuses --
 	if(H.patron?.type == /datum/patron/inhumen/graggar) // not going to lie, I have no idea why you're even allowed to be a heretic churchling but go off king
