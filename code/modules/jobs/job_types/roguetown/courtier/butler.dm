@@ -76,11 +76,12 @@
 
 /datum/outfit/job/seneschal/seneschal/pre_equip(mob/living/carbon/human/H)
 	..()
-	pants = /obj/item/clothing/under/roguetown/tights
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/guard
-	shoes = /obj/item/clothing/shoes/roguetown/shortboots
+	armor = /obj/item/clothing/armor/gambeson/tailcoat/lord
+	shirt = /obj/item/clothing/shirt/undershirt/formal
+	pants = /obj/item/clothing/pants/trou/formal
+	shoes = /obj/item/clothing/shoes/nobleboot
 	backl = /obj/item/storage/backpack/rogue/satchel
-	belt = /obj/item/storage/belt/rogue/leather
+	belt = /obj/item/storage/belt/leather/suspenders // Aware that these render over shit like coats. it's a problem for another day, in my time.
 	beltr = /obj/item/storage/keyring/servant
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/mid
 	id = /obj/item/scomstone/bad
@@ -115,11 +116,12 @@
 
 /datum/outfit/job/seneschal/headmaid/pre_equip(mob/living/carbon/human/H)
 	..()
-	armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/black
-	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
-	cloak = /obj/item/clothing/cloak/apron/waist
+	head = /obj/item/clothing/head/maidband
+	armor = /obj/item/clothing/shirt/dress/maid/lord
+	shoes = /obj/item/clothing/shoes/roguetown/shortboots
+	cloak = /obj/item/clothing/cloak/apron/maid
 	backl = /obj/item/storage/backpack/rogue/satchel
-	belt = /obj/item/storage/belt/rogue/leather
+	belt = /obj/item/storage/belt/rogue/leather/sash
 	beltr = /obj/item/storage/keyring/servant
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/mid
 	id = /obj/item/scomstone/bad
@@ -152,12 +154,12 @@
 
 /datum/outfit/job/seneschal/chiefbutler/pre_equip(mob/living/carbon/human/H)
 	..() // They need a monocle.
-	pants = /obj/item/clothing/under/roguetown/tights/black
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
-	shoes = /obj/item/clothing/shoes/roguetown/shortboots
+	armor = /obj/item/clothing/armor/gambeson/tailcoat/lord
+	shirt = /obj/item/clothing/shirt/undershirt/formal
+	pants = /obj/item/clothing/pants/trou/formal
+	shoes = /obj/item/clothing/shoes/nobleboot
 	backl = /obj/item/storage/backpack/rogue/satchel
-	belt = /obj/item/storage/belt/rogue/leather
+	belt = /obj/item/storage/belt/leather/suspenders // Aware that these render over shit like coats. it's a problem for another day, in my time.
 	beltr = /obj/item/storage/keyring/servant
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/mid
-	armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/black
 	id = /obj/item/scomstone/bad
