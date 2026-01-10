@@ -58,7 +58,7 @@
 /datum/outfit/job/servant/servant/pre_equip(mob/living/carbon/human/H)
 	..()
 	pants = /obj/item/clothing/pants/trou/formal/shorts
-	shirt = /obj/item/clothing/shirt/undershirt/formal
+	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/formal
 	shoes = /obj/item/clothing/shoes/roguetown/boots
 	backl = /obj/item/storage/backpack/rogue/satchel
 	belt = /obj/item/storage/belt/leather/suspenders/butler
@@ -155,7 +155,7 @@
 /datum/outfit/job/servant/butler/pre_equip(mob/living/carbon/human/H)
 	..()
 	pants = /obj/item/clothing/pants/trou/formal/shorts
-	shirt = /obj/item/clothing/shirt/undershirt/formal
+	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/formal
 	shoes = /obj/item/clothing/shoes/roguetown/boots
 	backl = /obj/item/storage/backpack/rogue/satchel/black
 	belt = /obj/item/storage/belt/leather/suspenders/butler

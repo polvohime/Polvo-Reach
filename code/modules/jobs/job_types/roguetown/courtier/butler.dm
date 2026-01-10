@@ -77,7 +77,7 @@
 /datum/outfit/job/seneschal/seneschal/pre_equip(mob/living/carbon/human/H)
 	..()
 	armor = /obj/item/clothing/armor/gambeson/tailcoat
-	shirt = /obj/item/clothing/shirt/undershirt/formal
+	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/formal
 	pants = /obj/item/clothing/pants/trou/formal
 	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
 	backl = /obj/item/storage/backpack/rogue/satchel
@@ -155,7 +155,7 @@
 /datum/outfit/job/seneschal/chiefbutler/pre_equip(mob/living/carbon/human/H)
 	..() // They need a monocle.
 	armor = /obj/item/clothing/armor/gambeson/tailcoat
-	shirt = /obj/item/clothing/shirt/undershirt/formal
+	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/formal
 	pants = /obj/item/clothing/pants/trou/formal
 	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
 	backl = /obj/item/storage/backpack/rogue/satchel

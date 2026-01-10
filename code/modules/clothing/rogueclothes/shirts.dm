@@ -243,12 +243,15 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts.dmi'
 	detail_color = CLOTHING_BLACK
 
-/obj/item/clothing/shirt/undershirt/formal
+/obj/item/clothing/suit/roguetown/shirt/undershirt/formal
 	name = "formal shirt"
 	desc = "A comfortable yet functional dress shirt often worn by the staff of a noble household."
 	icon_state = "butlershirt"
 	item_state = "butlershirt"
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_maids.dmi'
+	slot_flags = ITEM_SLOT_SHIRT
+	icon = 'icons/roguetown/clothing/shirts.dmi'
 //End Servant Clothing
 
 /obj/item/clothing/suit/roguetown/shirt/dress/winterdress_light

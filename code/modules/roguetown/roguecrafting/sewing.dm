@@ -1388,7 +1388,7 @@ datum/crafting_recipe/roguetown/sewing/Purdress
 
 /datum/crafting_recipe/roguetown/sewing/formalshirt
 	name = "formal shirt"
-	result = list(/obj/item/clothing/shirt/undershirt/formal)
+	result = list(/obj/item/clothing/suit/roguetown/shirt/undershirt/formal)
 	reqs = list(/obj/item/natural/cloth = 3,
 				/obj/item/natural/fibers = 2)
 	craftdiff = 3
