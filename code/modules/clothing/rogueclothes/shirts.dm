@@ -236,7 +236,8 @@
 	. = ..()
 	if(GLOB.lordprimary)
 		lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
-	GLOB.lordcolor += src
+	else
+		GLOB.lordcolor += src
 
 /obj/item/clothing/shirt/dress/maid/lord/Destroy()
 	GLOB.lordcolor -= src
