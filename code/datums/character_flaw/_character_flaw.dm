@@ -162,6 +162,69 @@ GLOBAL_LIST_INIT(character_flaws, list(
 /datum/charflaw/badsight/proc/apply_reading_skill(mob/living/carbon/human/H)
 	H.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 
+/datum/charflaw/blind
+	name = "Blind"
+	desc = "I am visually impaired, ranging from poor sight to total blindness."
+	var/has_prompted = FALSE
+	var/prompt_in_progress = FALSE
+	/// 1=Moderate (nearsighted 1), 2=Severe (nearsighted 2), 3=Fully Blind (blind)
+	var/chosen_severity_level = 1
+	var/last_apply = 0
+	var/static/list/severity_choices = list("Moderate", "Severe", "Fully Blind")
+	var/static/list/severity_choice_to_level = list("Moderate" = 1, "Severe" = 2, "Fully Blind" = 3)
+
+/datum/charflaw/blind/flaw_on_life(mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(!H || QDELETED(H) || !H.client)
+		return
+	if(!has_prompted)
+		if(prompt_in_progress)
+			return
+		prompt_in_progress = TRUE
+		var/severity = tgui_input_list(H, "How severe is your blindness?", "Blindness", severity_choices, "Moderate")
+		prompt_in_progress = FALSE
+		if(!severity)
+			// Treat rejection/cancel as the lowest severity and do not re-prompt.
+			chosen_severity_level = 1
+			has_prompted = TRUE
+		else
+			severity = sanitize_inlist(severity, severity_choices, "Moderate")
+			chosen_severity_level = severity_choice_to_level[severity] || 1
+			has_prompted = TRUE
+	if(last_apply && world.time < last_apply + 2 SECONDS)
+		return
+	if(apply_severity(H))
+		last_apply = world.time
+	return
+
+/datum/charflaw/blind/proc/apply_severity(mob/living/carbon/human/H)
+	if(!H || QDELETED(H))
+		return FALSE
+	var/source = "[type]"
+	var/severity_level = clamp(round(chosen_severity_level), 1, 3)
+	// Always use a unique trait source so healing that uses EYE_DAMAGE won't cure the vice.
+	if(severity_level >= 3)
+		// Already fully blind from this vice source and not also nearsighted from it.
+		if(HAS_TRAIT_FROM(H, TRAIT_BLIND, source) && !HAS_TRAIT_FROM(H, TRAIT_NEARSIGHT, source))
+			return FALSE
+		if(HAS_TRAIT_FROM(H, TRAIT_NEARSIGHT, source))
+			H.cure_nearsighted(source)
+		H.become_blind(source)
+		return TRUE
+
+	// If already nearsighted from this vice source at or above the desired level, do nothing.
+	if(!HAS_TRAIT_FROM(H, TRAIT_BLIND, source) && HAS_TRAIT_FROM(H, TRAIT_NEARSIGHT, source))
+		var/current_level = H.nearsighted_severity_by_source ? H.nearsighted_severity_by_source[source] : null
+		if(isnum(current_level) && current_level >= severity_level)
+			return FALSE
+
+	if(HAS_TRAIT_FROM(H, TRAIT_BLIND, source))
+		H.cure_blind(source)
+	H.become_nearsighted(source, severity_level)
+	return TRUE
+
 /datum/charflaw/paranoid
 	name = "Paranoid"
 	desc = "I'm even more anxious than most people. I'm extra paranoid of other races and the sight of blood."
@@ -285,62 +348,6 @@ GLOBAL_LIST_INIT(character_flaws, list(
 /datum/charflaw/colorblind/on_mob_creation(mob/user)
 	..()
 	user.add_client_colour(/datum/client_colour/monochrome)
-
-/datum/charflaw/blind
-	name = "Blind"
-	desc = "I am visually impaired, ranging from poor sight to total blindness."
-	var/has_prompted = FALSE
-	var/registered_login_signal = FALSE
-	var/chosen_severity
-	var/static/list/severity_choices = list("Moderate", "Severe", "Fully Blind")
-
-/datum/charflaw/blind/apply_post_equipment(mob/user)
-	. = ..()
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	register_login_signal(H)
-	maybe_prompt_and_apply(H)
-	return
-
-/datum/charflaw/blind/proc/register_login_signal(mob/living/carbon/human/H)
-	if(registered_login_signal)
-		return
-	RegisterSignal(H, COMSIG_MOB_LOGIN, PROC_REF(on_owner_login))
-	registered_login_signal = TRUE
-
-/datum/charflaw/blind/proc/on_owner_login(mob/living/source)
-	SIGNAL_HANDLER
-	if(!ishuman(source))
-		return
-	var/mob/living/carbon/human/H = source
-	maybe_prompt_and_apply(H)
-
-/datum/charflaw/blind/proc/maybe_prompt_and_apply(mob/living/carbon/human/H)
-	if(!H || QDELETED(H) || !H.client)
-		return
-	if(!has_prompted)
-		has_prompted = TRUE
-		var/severity = tgui_input_list(H, "How severe is your blindness?", "Blindness", severity_choices, "Moderate")
-		chosen_severity = sanitize_inlist(severity, severity_choices, "Moderate")
-	apply_severity(H)
-	return
-
-/datum/charflaw/blind/proc/apply_severity(mob/living/carbon/human/H)
-	if(!H || QDELETED(H))
-		return
-	// Always use a unique trait source so healing that uses EYE_DAMAGE won't cure the vice.
-	switch(chosen_severity)
-		if("Fully Blind")
-			H.cure_nearsighted("[type]")
-			H.become_blind("[type]")
-		if("Severe")
-			H.cure_blind("[type]")
-			H.become_nearsighted("[type]", 2)
-		else
-			H.cure_blind("[type]")
-			H.become_nearsighted("[type]", 1)
-
 
 /datum/charflaw/greedy
 	name = "Greedy"
