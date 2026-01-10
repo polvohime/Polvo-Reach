@@ -351,6 +351,7 @@
 /obj/item/clothing/armor/gambeson/tailcoat
 	name = "tailcoat"
 	desc = "A finely-sewn tailcoat often worn by those on the brink of the upper echelons of Astratan caste."
+	icon = 'icons/roguetown/clothing/armor.dmi'
 	icon_state = "butlercoat"
 	item_state = "butlercoat"
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'

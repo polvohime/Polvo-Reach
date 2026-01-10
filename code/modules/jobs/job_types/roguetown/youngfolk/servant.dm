@@ -58,14 +58,13 @@
 /datum/outfit/job/servant/servant/pre_equip(mob/living/carbon/human/H)
 	..()
 	pants = /obj/item/clothing/under/roguetown/trou/formal/shorts
-	armor = /obj/item/clothing/suit/roguetown/shirt/dress/maid/servant
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/formal
 	shoes = /obj/item/clothing/shoes/roguetown/boots
-	backl = /obj/item/storage/backpack/rogue/satchel
+	backl = /obj/item/storage/backpack/rogue/satchel/black
 	belt = /obj/item/storage/belt/leather/suspenders/butler
 	beltr = /obj/item/storage/keyring/servant
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
-	armor = /obj/item/clothing/suit/roguetown/armor/workervest
+	armor = /obj/item/clothing/suit/roguetown/shirt/dress/maid/servant
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless
 
 	if(H.age == AGE_MIDDLEAGED)
@@ -108,7 +107,7 @@
 /datum/outfit/job/servant/maid/pre_equip(mob/living/carbon/human/H)
 	..()
 	head = /obj/item/clothing/head/roguetown/maidband
-	armor = /obj/item/clothing/suit/roguetown/shirt/dress/maid/servant
+	armor = /obj/item/clothing/suit/roguetown/shirt/dress/maid
 	shoes = /obj/item/clothing/shoes/roguetown/shortboots
 	cloak = /obj/item/clothing/cloak/apron/maid
 	backl = /obj/item/storage/backpack/rogue/satchel/black
