@@ -366,17 +366,12 @@ GLOBAL_LIST_EMPTY(divine_destruction_mobs) // Tracks mobs undergoing divine dest
 	return TRUE
 
 /// Ranged undead immolation
-/obj/effect/proc_holder/spell/invoked/revive/proc/immolate_them_now(mob/living/user, mob/living/target, is_powerful_undead = FALSE)
+/obj/effect/proc_holder/spell/invoked/revive/proc/immolate_them_now(mob/living/user, mob/living/target)
 	if(!istype(user) || !istype(target))
 		return FALSE
 
-	// Start cinematic destruction sequence
-	if(is_powerful_undead)
-		to_chat(user, span_danger("You channel Astrata's might! [target] begins to burn with holy light!"))
-		target.visible_message(span_astratabig("[target] is struck by astronomical holy light, their form beginning to burn with divine radiance!"))
-	else
-		to_chat(user, span_danger("[target] is caught in holy light!"))
-		target.visible_message(span_astratabig("[target] begins to burn with holy light!"))
+	to_chat(user, span_danger("You channel Astrata's might! [target] is struck with holy light!"))
+	target.visible_message(span_astratabig("[target] is struck by holy light!"))
 
 	for(var/obj/structure/fluff/psycross/S in oview(5, user))
 		S.AOE_flash(user, range = 5)
